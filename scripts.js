@@ -1,5 +1,5 @@
-function getValidWords() {
-	fetch("words-5-letters.txt")
+function loadWords(path) {
+	fetch(path)
 		.then(res => res.text())
 		.then(text => {
 			const words = text
@@ -9,11 +9,11 @@ function getValidWords() {
 		})
 }
 
-const validWords = getValidWords();
+const valid5LetterWords = loadWords("words-5-letter.txt");
 
 //------------------------------------------------------------------------------
 
-function includesCorrectLetters(correctLetters, word) {
+function includesCorrectLetters(word, correctLetters) {
 	for (let i = 0; i < word.length(); i++) {
 		if (correctLetters[i] != '.' && correctLetters[i] !== word[i]) {
 			return false;
@@ -22,7 +22,7 @@ function includesCorrectLetters(correctLetters, word) {
 	return true;
 }
 
-function includesMisplacedLetters(misplacedLetters, word) {
+function includesMisplacedLetters(word, misplacedLetters) {
 	for (let i = 0; i < word.length(); i++) {
 		// Continue here
 	}
@@ -31,8 +31,8 @@ function includesMisplacedLetters(misplacedLetters, word) {
 function getPossibleWords(correctLetters, misplacedLetters, excludedLetters) {
 	let possibleWords = [];
 
-	for (word in validWords) {
-		if (includesCorrectLetters(correctLetters, word)) {
+	for (word in valid5LetterWords) {
+		if (includesCorrectLetters(word, correctLetters)) {
 			possibleWords.push(word);
 		}
 	}
