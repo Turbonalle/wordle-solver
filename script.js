@@ -1,8 +1,5 @@
+const EMPTY = ' ';
 let valid5LetterWords = [];
-
-const correctLetters = "....y";
-const misplacedLetters = "f....";
-const excludedLetters = "xeaub";
 
 async function loadWords(path) {
 	const res = await fetch(path);
@@ -16,7 +13,8 @@ async function loadWords(path) {
 	console.log("Words loaded: ", valid5LetterWords.length);
 }
 
-//------------------------------------------------------------------------------
+
+//-- Error check ---------------------------------------------------------------
 
 function inputError(word, letters) {
 	if (!word || !letters || word.length == 0 || word.length != letters.length) {
@@ -25,11 +23,14 @@ function inputError(word, letters) {
 	return false;
 }
 
+
+//-- Letter check --------------------------------------------------------------
+
 function includesCorrectLetters(word, correctLetters) {
 	if (inputError(word, correctLetters)) return;
 
 	for (let i = 0; i < word.length; i++) {
-		if (correctLetters[i] != '.' && correctLetters[i] !== word[i]) {
+		if (correctLetters[i] != EMPTY && correctLetters[i] !== word[i]) {
 			return false;
 		}
 	}
@@ -43,11 +44,11 @@ function includesMisplacedLetters(word, misplacedLetters, correctLetters) {
 	let includes = false;
 
 	for (let i = 0; i < len; i++) {
-		if (misplacedLetters[i] != '.') {
+		if (misplacedLetters[i] != EMPTY) {
 			includes = false;
 			for (let j = 0; j < len; j++) {
 				if (j == i) continue;
-				if (word[j] == misplacedLetters[i] && correctLetters[j] == '.') { includes = true };
+				if (word[j] == misplacedLetters[i] && correctLetters[j] == EMPTY) { includes = true };
 			}
 			if (includes == false) return false;
 		}
@@ -66,13 +67,34 @@ function includesExcludedLetters(word, excludedLetters) {
 	return false;
 }
 
-async function getPossibleWords(correctLetters, misplacedLetters, excludedLetters) {
+
+//-- Read input ----------------------------------------------------------------
+
+function getLetters(id) {
+	const container = document.getElementById(id);
+	let letters = [];
+	for (const child of container.children) {
+		if (!child.value) {
+			letters.push(EMPTY)
+		} else {
+			letters.push(child.value);
+		}
+	}
+	return letters;
+}
+
+
+//-- Main function -------------------------------------------------------------
+
+async function getPossibleWords() {
+	const correctLetters = getLetters("correct-letters");
+	const misplacedLetters = getLetters("misplaced-letters");
+	const excludedLetters = document.getElementById("excluded-letters").value;
 	let possibleWords = [];
 
 	await wordsLoaded;
 
 	for (const word of valid5LetterWords) {
-		// console.log("Testing word: ", word);
 		if (includesCorrectLetters(word, correctLetters)
 			&& includesMisplacedLetters(word, misplacedLetters, correctLetters)
 			&& !includesExcludedLetters(word, excludedLetters)
@@ -89,4 +111,3 @@ async function getPossibleWords(correctLetters, misplacedLetters, excludedLetter
 }
 
 let wordsLoaded = loadWords("words-5-letters.txt");
-getPossibleWords(correctLetters, misplacedLetters, excludedLetters);

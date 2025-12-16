@@ -3,26 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
 	<title>Wordle Solver</title>
 </head>
 <body>
 	<h1>Wordle Solver</h1>
-	<div class="letters-container">
+	<div class="letters-container" id="correct-letters">
 		<input type="text">
 		<input type="text">
 		<input type="text">
 		<input type="text">
 		<input type="text">
 	</div>
-	<div class="letters-container">
+	<div class="letters-container" id="misplaced-letters">
 		<input type="text">
 		<input type="text">
 		<input type="text">
 		<input type="text">
 		<input type="text">
 	</div>
-	<input type="text">
-	<button>Search</button>
-	<script src="scripts.js"></script>
+	<input type="text" id="excluded-letters">
+	<button onclick="getPossibleWords()">Search</button>
+	<script src="script.js"></script>
 </body>
 </html>
