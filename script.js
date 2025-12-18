@@ -9,7 +9,6 @@ async function loadWords(path) {
 		.split(/\r?\n/)
 		.map(w => w.trim())
 		.filter(Boolean);
-	
 	console.log("Words loaded: ", valid5LetterWords.length);
 }
 
@@ -34,7 +33,6 @@ function includesCorrectLetters(word, correctLetters) {
 			return false;
 		}
 	}
-	console.log("Word includes correct letters: ", word);
 	return true;
 }
 
@@ -53,7 +51,6 @@ function includesMisplacedLetters(word, misplacedLetters, correctLetters) {
 			if (includes == false) return false;
 		}
 	}
-	console.log("Word includes misplaced letters: ", word);
 	return true;
 }
 
@@ -63,7 +60,6 @@ function includesExcludedLetters(word, excludedLetters) {
 			if (word[i] == excludedLetters[j]) return true;
 		}
 	}
-	console.log("Word does not include excluded letters: ", word);
 	return false;
 }
 
@@ -103,11 +99,37 @@ async function getPossibleWords() {
 		}
 	}
 
-	for (const word of possibleWords) {
-		console.log("Possible word: ", word);
-	}
+	const amount = document.getElementById("amount");
+	amount.innerText = possibleWords.length;
 
-	return possibleWords;
+	if (possibleWords.length <= 100) {
+		const box = document.getElementById("possible-words");
+		box.innerText = "";
+		for (const word of possibleWords) {
+			box.innerText += word + "\n";
+		}
+	}
 }
 
+
+//-- Initialize ----------------------------------------------------------------
+
 let wordsLoaded = loadWords("words-5-letters.txt");
+
+const correctLetters = document.getElementById("correct-letters");
+for (const child of correctLetters.children) {
+	child.addEventListener("input", () => {
+		child.value ? child.style.background = "var(--color-correct)" : child.style.background = "var(--color-bg";
+		getPossibleWords();
+	});
+}
+
+const misplacedLetters = document.getElementById("misplaced-letters");
+for (const child of misplacedLetters.children) {
+	child.addEventListener("input", () => {
+		child.value ? child.style.background = "var(--color-misplaced)" : child.style.background = "var(--color-bg";
+		getPossibleWords();
+	});
+}
+
+document.getElementById("excluded-letters").addEventListener("input", getPossibleWords);
