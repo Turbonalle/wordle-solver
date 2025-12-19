@@ -101,12 +101,13 @@ async function getPossibleWords() {
 
 	const amount = document.getElementById("amount");
 	amount.innerText = possibleWords.length;
+	
+	const possibleWordsContainer = document.getElementById("possible-words");
+	possibleWordsContainer.innerText = "";
 
 	if (possibleWords.length <= 100) {
-		const box = document.getElementById("possible-words");
-		box.innerText = "";
 		for (const word of possibleWords) {
-			box.innerText += word + "\n";
+			possibleWordsContainer.innerText += word + "\n";
 		}
 	}
 }
