@@ -5,6 +5,7 @@
 	--color-empty: rgb(18, 18, 18);
 	--color-correct: rgb(41, 134, 59);
 	--color-misplaced: rgb(208, 168, 57);
+	--color-fade: rgb(91, 91, 91);
 	--size-box: 50px;
 	--size-gap: 6px;
 }
@@ -58,6 +59,7 @@ input {
 	height: 300px;
 	padding: 2px 0;
 	text-align: center;
-	border: 1px solid rgb(91, 91, 91);
+	border: 1px solid var(--color-fade);
 	overflow-x: auto;
+	white-space: pre-wrap;
 }

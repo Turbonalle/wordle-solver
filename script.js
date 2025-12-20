@@ -99,17 +99,8 @@ async function getPossibleWords() {
 		}
 	}
 
-	const amount = document.getElementById("amount");
-	amount.innerText = possibleWords.length;
-	
-	const possibleWordsContainer = document.getElementById("possible-words");
-	possibleWordsContainer.innerText = "";
-
-	if (possibleWords.length <= 100) {
-		for (const word of possibleWords) {
-			possibleWordsContainer.innerText += word + "\n";
-		}
-	}
+	document.getElementById("amount").innerText = possibleWords.length;
+	document.getElementById("possible-words").textContent = possibleWords.join("\n");
 }
 
 
@@ -134,3 +125,4 @@ for (const child of misplacedLetters.children) {
 }
 
 document.getElementById("excluded-letters").addEventListener("input", getPossibleWords);
+getPossibleWords();
