@@ -1,6 +1,7 @@
 :root {
 	--color-bg: rgb(18, 18, 18);
 	--color-text: rgb(222, 222, 222);
+	--color-header: rgb(255, 215, 0);
 	--color-highlight: rgb(41, 134, 59);
 	--color-empty: rgb(18, 18, 18);
 	--color-correct: rgb(41, 134, 59);
@@ -8,6 +9,7 @@
 	--color-fade: rgb(91, 91, 91);
 	--size-box: 50px;
 	--size-gap: 6px;
+	--size-gap-log: 16px;
 }
 
 body {
@@ -19,7 +21,7 @@ body {
 }
 
 h1 {
-	color: gold;
+	color: var(--color-header);
 }
 
 h2 {
@@ -62,4 +64,64 @@ input {
 	border: 1px solid var(--color-fade);
 	overflow-x: auto;
 	white-space: pre-wrap;
+}
+
+#log-toggle {
+	position: fixed;
+	bottom: 12px;
+	right: 12px;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: #333;
+	color: white;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	user-select: none;
+	z-index: 100;
+}
+
+#update-log {
+	position: fixed;
+	bottom: 0px;
+	right: 12px;
+	width: 280px;
+	max-height: 400px;
+	padding: 0px 10px;
+	background: #111;
+	color: #eee;
+	border-radius: 8px;
+	box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+	transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#update-log.closed {
+	transform: translateY(10px);
+	opacity: 0;
+	pointer-events: none;
+}
+
+#log-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: bold;
+	color: var(--color-header);
+}
+
+#log-content {
+	padding-top: var(--size-gap-log);
+	overflow-y: auto;
+	font-size: 13px;
+	font-family: monospace;
+}
+
+p {
+	margin: 0;
+	margin-bottom: var(--size-gap-log);
+}
+
+.date {
+	color: var(--color-highlight);
 }

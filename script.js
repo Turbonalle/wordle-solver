@@ -126,3 +126,11 @@ for (const child of misplacedLetters.children) {
 
 document.getElementById("excluded-letters").addEventListener("input", getPossibleWords);
 getPossibleWords();
+
+
+const logToggle = document.getElementById("log-toggle");
+const logPanel = document.getElementById("update-log");
+
+logToggle.addEventListener("click", () => {
+  logPanel.classList.toggle("closed");
+});
