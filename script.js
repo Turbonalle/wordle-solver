@@ -134,3 +134,7 @@ const logPanel = document.getElementById("update-log");
 logToggle.addEventListener("click", () => {
   logPanel.classList.toggle("closed");
 });
+
+logPanel.addEventListener("click", () => {
+  logPanel.classList.toggle("closed");
+});
