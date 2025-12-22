@@ -115,6 +115,7 @@ input {
 	overflow-y: auto;
 	font-size: 13px;
 	font-family: monospace;
+	padding-bottom: 50px;
 }
 
 p {
